@@ -1,2 +1,40 @@
 # vircadia-domin-server-docker
-Docker version of Vircadia domain-server built with vircadia-builder
+
+Docker version of Vircadia domain-server built with vircadia-builder.
+
+This repository includes files to build the Docker image (build*.sh)
+and run the Docker image (*-domain-server.sh).
+
+The Dockerfile is broken into two halves to make building and
+debugging a little easier. `buildBase.sh` builds an image that
+contains the built Vircadia services as well as the supporting
+libraries (Qt, ...). `buildDS.sh` uses the base image to create
+the domain-server image that just includes the needed binaries.
+
+The build argument `TAG` specifies the GIT pull tag. This defaults
+to `master`.
+
+The script `pushDocker.sh` pushes  the image to my repository.
+
+Thus, the steps to build are:
+
+```
+    ./buildBase.sh
+    ./buildDS.sh
+    ./pushDocker.sh
+```
+
+On the system the domain-server is to be run on, pull this
+repository and then `run-domain-server.sh`. This will pull
+the image from `hub.docker.com`.
+
+By default, the domain-server will point to the metaverse-server
+`https://metaverse.vircadia.com/live` but this can be changed
+by passing the metaverse URL to the run script:
+
+```
+    ./run-domain-server.sh https://metaverse.example.com ice.example.com
+```
+
+The run script will create directories `server-dotlocal` and `server-logs`
+that hold persistant data for the domain-server.
