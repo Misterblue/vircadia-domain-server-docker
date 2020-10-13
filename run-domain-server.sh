@@ -1,9 +1,17 @@
 #! /bin/bash
 # Start the domain-server with persistant data in local dir
 # Invocation: ./run-domain-server {metaverse_server_url} {ice_server_location}
+#   or the metaverse-server and ice-server can be set with environment
+#      variables METAVERSE_URL and ICE_SERVER
 
-export ENV_METAVERSE_URL=${1:-https://metaverse.vircadia.com/live}
-export ENV_ICE_SERVER=${2:-ice.vircadia.com}
+export ENV_METAVERSE_URL=${METAVERSE_URL:-https://metaverse.vircadia.com/live}
+if [[ ! -z "$1" ]] ; then
+    ENV_METAVERSE_URL=$1
+fi
+export ENV_ICE_SERVER=${ICE_SERVER:-ice.vircadia.com}
+if [[ ! -z "$2" ]] ; then
+    ENV_ICE_SERVER=$1
+fi
 
 BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
 

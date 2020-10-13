@@ -1,8 +1,12 @@
 #! /bin/bash
 # Start the ice-server with persistant data in local dir
 # Invocation: ./run-ice-server {metaverse_server_url}
+#    or the metaverse url can be set with environment variable METAVERSE_URL
 
-export ENV_METAVERSE_URL=${1:-https://metaverse.vircadia.com/live}
+export ENV_METAVERSE_URL=${METAVERSE_URL:-https://metaverse.vircadia.com/live}
+if [[ ! -z "$1" ]] ; then
+    ENV_METAVERSE_URL=$1
+fi
 
 BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
 
