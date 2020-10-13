@@ -51,7 +51,7 @@ USER cadia:cadia
 
 RUN mkdir -p /home/cadia/.config \
     && mkdir -p /home/cadia/.local \
-    && mkdir -p /home/cadia/log
+    && mkdir -p /home/cadia/logs
 
 COPY --chown=cadia:cadia files/start-domain-server.sh /home/cadia
 COPY --chown=cadia:cadia files/start-ice-server.sh /home/cadia

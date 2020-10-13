@@ -38,3 +38,24 @@ by passing the metaverse URL to the run script:
 
 The run script will create directories `server-dotlocal` and `server-logs`
 that hold persistant data for the domain-server.
+
+There is a special kludge to get the version of the built domain-server.
+
+```
+    docker run --rm --entrypoint /home/cadia/getVersion.sh misterblue/vircadia-domain-server
+```
+
+This runs the image and outputs JSON text giving the version the domain-server
+was built with:
+
+```JSON
+   {
+      "GIT_COMMIT": "GitCommitString",
+      "GIT_COMMIT_SHORT": "FirstEightCharactersOfGitCommitString",
+      "GIT_TAG": "GitBranchTag",
+      "BUILD_DATE": "YYYYMMDD.HHMM",
+      "BUILD_DAY": "YYYYMMDD"
+      "VERSION_TAG": "TAG-YYYYMMDD-xxxxxxxx"
+   }
+
+```
