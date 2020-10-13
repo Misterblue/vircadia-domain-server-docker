@@ -5,7 +5,7 @@
 export ENV_METAVERSE_URL=${1:-https://metaverse.vircadia.com/live}
 export ENV_ICE_SERVER=${2:-ice.vircadia.com}
 
-BASE=$(pwd)
+BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
 
 cd "${BASE}"
 
@@ -18,9 +18,10 @@ chmod 777 ${BASE}/server-dotlocal
 mkdir -p ${BASE}/server-logs
 chmod 777 ${BASE}/server-logs
 
-docker run -d \
-        --name=domainserver \
+docker run \
+        -d \
         --restart=unless-stopped \
+        --name=domainserver \
         -p 40100-40102:40100-40102 -p 40100-40102:40100-40102/udp \
         -p 48000-48009:48000-48009/udp \
         -e METAVERSE_URL=$ENV_METAVERSE_URL \

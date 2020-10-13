@@ -14,9 +14,9 @@
 #               "GIT_COMMIT": "COMMIT",
 #               "GIT_COMMIT_SHORT": "COMMIT_SHORT",
 #               "GIT_TAG": "TAG",
-#               "BUILD_DATE": "YYYMMDD.HHMM",
-#               "BUILD_DAY": "YYYMMDD"
-#               "VERSION_TAG": "YYYMMDD.hhmm-xxxxxxxx"
+#               "BUILD_DATE": "YYYYMMDD.HHMM",
+#               "BUILD_DAY": "YYYYMMDD"
+#               "VERSION_TAG": "TAG-YYYYMMDD-xxxxxxxx"
 #           }
 
 SRCDIR=${1:-/opt/vircadia/source}
@@ -30,7 +30,7 @@ BUILD_DATE=$(date "+%Y%m%d.%H%M")
 BUILD_DAY=$(date "+%Y%m%d")
 GIT_COMMIT=$(git rev-parse HEAD)
 GIT_COMMIT_SHORT=$(git rev-parse --short HEAD)
-VERSION_TAG=${BUILD_DATE_SHORT}-${GIT_TAG}-${GIT_COMMIT_SHORT}
+VERSION_TAG=${GIT_TAG}-${BUILD_DAY}-${GIT_COMMIT_SHORT}
 
 mkdir -p "${VERDIR}"
 cd "${VERDIR}"

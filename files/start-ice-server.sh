@@ -13,4 +13,4 @@ RUNDIR=/opt/vircadia/install_master
 
 cd "${RUNDIR}"
 
-./run_ice-server --url ${HIFI_METAVERSE_URL} >> "${LOGFILE}.log" 2>&1 &
+./run_ice-server --url ${HIFI_METAVERSE_URL} >> "${LOGFILE}.log" 2>&1

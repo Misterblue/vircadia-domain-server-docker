@@ -22,4 +22,4 @@ cd "${RUNDIR}"
 ./run_assignment-client -t 5 -a localhost -p 48005 >> "${ALOGFILE}-5.log" 2>&1 &
 ./run_assignment-client -t 6 -a localhost -p 48006 >> "${ALOGFILE}-6.log" 2>&1 &
 
-./run_domain-server -i ${ICE_SERVER_URL} --get-temp-name >> "${LOGFILE}.log" 2>&1 &
+./run_domain-server -i ${ICE_SERVER_URL} >> "${LOGFILE}.log" 2>&1
