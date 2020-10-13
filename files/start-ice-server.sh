@@ -1,7 +1,6 @@
 #! /bin/bash
 
 export HIFI_METAVERSE_URL=${METAVERSE_URL:-https://metaverse.vircadia.com/live}
-export ICE_SERVER_URL=${ICE_SERVER:-ice.vircadia.com:7337}
 
 LOGDIR=/home/cadia/logs
 mkdir -p "${LOGDIR}"
