@@ -39,6 +39,12 @@ by passing the metaverse URL to the run script:
 The run script will create directories `server-dotlocal` and `server-logs`
 that hold persistant data for the domain-server.
 
+TODO: Break out all the assignment clients into separate containers running
+on the 'internal' virtual network. Use `docker-compose` or similar to
+start them all up and to do scaling for things like audio load, etc.
+
+## Versioning
+
 There is a special kludge to get the version of the built domain-server.
 
 ```
