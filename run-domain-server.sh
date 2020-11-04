@@ -30,10 +30,13 @@ docker run \
         -d \
         --restart=unless-stopped \
         --name=domainserver \
-        -p 40100-40102:40100-40102 -p 40100-40102:40100-40102/udp \
-        -p 48000-48009:48000-48009/udp \
         -e METAVERSE_URL=$ENV_METAVERSE_URL \
         -e ICE_SERVER=$ENV_ICE_SERVER \
+        --network=host \
         --volume ${BASE}/server-dotlocal:/home/cadia/.local \
         --volume ${BASE}/server-logs:/home/cadia/logs \
         misterblue/vircadia-domain-server:${DVERSION}
+
+# The assignment clients are all over the place so network=host works
+#        -p 40100-40102:40100-40102 -p 40100-40102:40100-40102/udp \
+#        -p 48000-48009:48000-48009/udp \
