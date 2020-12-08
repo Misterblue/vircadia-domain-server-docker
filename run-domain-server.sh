@@ -13,7 +13,22 @@ if [[ ! -z "$2" ]] ; then
     ENV_ICE_SERVER=$1
 fi
 
+# Get the directory that this script is running from
 BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
+
+# Create a cleaned up version of the METAVERSE_URL to use as directory for per-grid info
+CLEANMVNAME=$(echo $ENV_METAVERSE_URL | sed -e 's=http*://==' -e 's/[[:punct:]]/./g')
+
+# Grid configuration and info stored here
+DOTLOCALDIR=${BASE}/server-dotlocal/${CLEANMVNAME}
+LOGDIR=${BASE}/server-logs/${CLEANMVNAME}
+
+# Debugging stuff that can be removed
+echo "METAVERSE_URL=${ENV_METAVERSE_URL}"
+echo "ICE_SERVER=${ENV_ICE_SERVER}"
+echo "CLEANMVNAME=${CLEANMVNAME}"
+echo "DOTLOCALDIR=${DOTLOCALDIR}"
+echo "LOGDIR=${LOGDIR}"
 
 cd "${BASE}"
 
@@ -21,10 +36,10 @@ DVERSION=latest
 
 # Create local directories that are mounted from the Docker container
 # Permission is set to 777 since the container runs its own UID:GID
-mkdir -p ${BASE}/server-dotlocal
-chmod 777 ${BASE}/server-dotlocal
-mkdir -p ${BASE}/server-logs
-chmod 777 ${BASE}/server-logs
+mkdir -p "${DOTLOCALDIR}"
+chmod 777 "${DOTLOCALDIR}"
+mkdir -p "${LOGDIR}"
+chmod 777 "${LOGDIR}"
 
 docker run \
         -d \
@@ -32,9 +47,10 @@ docker run \
         --name=domainserver \
         -e METAVERSE_URL=$ENV_METAVERSE_URL \
         -e ICE_SERVER=$ENV_ICE_SERVER \
+        -e INSTANCE=0 \
         --network=host \
-        --volume ${BASE}/server-dotlocal:/home/cadia/.local \
-        --volume ${BASE}/server-logs:/home/cadia/logs \
+        --volume ${DOTLOCALDIR}:/home/cadia/.local \
+        --volume ${LOGDIR}:/home/cadia/logs \
         misterblue/vircadia-domain-server:${DVERSION}
 
 # The assignment clients are all over the place so network=host works
