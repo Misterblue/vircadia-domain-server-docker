@@ -17,7 +17,7 @@ fi
 BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
 
 # Create a cleaned up version of the METAVERSE_URL to use as directory for per-grid info
-CLEANMVNAME=$(echo $ENV_METAVERSE_URL | sed -e 's=http*://==' -e 's/[[:punct:]]/./g')
+CLEANMVNAME=$(echo $ENV_METAVERSE_URL | sed -e 's=http.*://==' -e 's/[[:punct:]]/./g')
 
 # Grid configuration and info stored here
 DOTLOCALDIR=${BASE}/server-dotlocal/${CLEANMVNAME}
