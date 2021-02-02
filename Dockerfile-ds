@@ -61,11 +61,11 @@ VOLUME /home/cadia/.local
 VOLUME /home/cadia/logs
 
 # expose ports for domain server
-EXPOSE 40100 40101 40102
-EXPOSE 40100/udp 40101/udp 40102/udp
+# EXPOSE 40100 40101 40102
+# EXPOSE 40100/udp 40101/udp 40102/udp
 
 # expose ports for assignment client
-EXPOSE 48000/udp 48001/udp 48002/udp 48003/udp 48004/udp 48005/udp 48006/udp
+# EXPOSE 48000/udp 48001/udp 48002/udp 48003/udp 48004/udp 48005/udp 48006/udp
 
 ENTRYPOINT ["/home/cadia/start-domain-server.sh"]
 

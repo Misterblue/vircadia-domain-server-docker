@@ -9,9 +9,12 @@ else
     ATAG=${1:-master}
 fi
 
+#NOCACHE=--no-cache
+
 # vircadia-builder normalizes the tag name with all special chars to underscore
 export BUILDTAG=$(echo $ATAG | sed -e 's/[[:punct:]]/_/g')
 
 docker build -f Dockerfile-ds \
     --build-arg TAG=${BUILDTAG} \
+    ${NOCACHE} \
     -t vircadia-domain-server . | tee out.buildDS 2>&1

@@ -39,14 +39,16 @@ DOMAIN_SERVER_PORT=$(( $DOMAIN_SERVER_BASE + 2 ))
 
 cd "${RUNDIR}"
 
-./run_assignment-client -t 0 -p $(( $ASSIGNMENT_BASE + 0 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-0.log" 2>&1 &
-./run_assignment-client -t 1 -p $(( $ASSIGNMENT_BASE + 1 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-1.log" 2>&1 &
-./run_assignment-client -t 6 -p $(( $ASSIGNMENT_BASE + 6 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-6.log" 2>&1 &
-./run_assignment-client -t 3 -p $(( $ASSIGNMENT_BASE + 3 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-3.log" 2>&1 &
-./run_assignment-client -t 5 -p $(( $ASSIGNMENT_BASE + 5 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-5.log" 2>&1 &
-./run_assignment-client -t 4 -p $(( $ASSIGNMENT_BASE + 4 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-4.log" 2>&1 &
-./run_assignment-client -t 2 -p $(( $ASSIGNMENT_BASE + 2 )) --server-port ${DOMAIN_SERVER_PORT} --max 60 >> "${ALOGFILE}-2.log" 2>&1 &
+#./run_assignment-client -t 0 -p $(( $ASSIGNMENT_BASE + 0 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-0.log" 2>&1 &
+#./run_assignment-client -t 1 -p $(( $ASSIGNMENT_BASE + 1 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-1.log" 2>&1 &
+#./run_assignment-client -t 6 -p $(( $ASSIGNMENT_BASE + 6 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-6.log" 2>&1 &
+#./run_assignment-client -t 3 -p $(( $ASSIGNMENT_BASE + 3 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-3.log" 2>&1 &
+#./run_assignment-client -t 5 -p $(( $ASSIGNMENT_BASE + 5 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-5.log" 2>&1 &
+#./run_assignment-client -t 4 -p $(( $ASSIGNMENT_BASE + 4 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-4.log" 2>&1 &
+#./run_assignment-client -t 2 -p $(( $ASSIGNMENT_BASE + 2 )) --server-port ${DOMAIN_SERVER_PORT} --max 60 >> "${ALOGFILE}-2.log" 2>&1 &
 
-sleep 2
+./run_assignment-client -p $ASSIGNMENT_BASE --server-port ${DOMAIN_SERVER_PORT} --max 20 >> "${ALOGFILE}-A.log" 2>&1 &
+
+sleep 3
 
 ./run_domain-server -i ${ICE_SERVER_URL} >> "${LOGFILE}.log" 2>&1
