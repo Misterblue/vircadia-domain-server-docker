@@ -36,12 +36,27 @@ by passing the metaverse URL to the run script:
     ./run-domain-server.sh https://metaverse.example.com ice.example.com
 ```
 
+`run-domain-server.sh` uses "--networking=host" because the assignment
+clients use ports all over the place. The assignment-clients need some
+taming on their port usage and some parameterization for running
+multiple domain-servers on one processor.
+
 The run script will create directories `server-dotlocal` and `server-logs`
-that hold persistant data for the domain-server.
+that holds persistant data for the domain-server.
 
 TODO: Break out all the assignment clients into separate containers running
 on the 'internal' virtual network. Use `docker-compose` or similar to
 start them all up and to do scaling for things like audio load, etc.
+
+ALSO TODO: Modify run scripts to allow persisting data for multiple
+domain-servers.
+
+## Ice Server
+
+The Docker image also contains an ice-server which you can run if you
+are running your own grid (using your own metaverse-server, etc).
+The script `run-ice-server.sh` will run the ice server.
+It requires the URL of the metaverse-server.
 
 ## Versioning
 

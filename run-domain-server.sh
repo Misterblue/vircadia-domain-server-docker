@@ -8,10 +8,13 @@ export ENV_METAVERSE_URL=${METAVERSE_URL:-https://metaverse.vircadia.com/live}
 if [[ ! -z "$1" ]] ; then
     ENV_METAVERSE_URL=$1
 fi
-export ENV_ICE_SERVER=${ICE_SERVER:-ice.vircadia.com}
+export ENV_ICE_SERVER=${ICE_SERVER:-ice.vircadia.com:7337}
 if [[ ! -z "$2" ]] ; then
-    ENV_ICE_SERVER=$1
+    ENV_ICE_SERVER=$2
 fi
+
+# There can be multiple domain-servers on one host. This is the default index
+export INSTANCE=0
 
 # Get the directory that this script is running from
 BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
@@ -21,7 +24,7 @@ CLEANMVNAME=$(echo $ENV_METAVERSE_URL | sed -e 's=http.*://==' -e 's/[[:punct:]]
 
 # Grid configuration and info stored here
 DOTLOCALDIR=${BASE}/server-dotlocal/${CLEANMVNAME}
-LOGDIR=${BASE}/server-logs/${CLEANMVNAME}
+LOGDIR=${BASE}/server-logs/${CLEANMVNAME}/$INSTANCE
 
 # Debugging stuff that can be removed
 echo "METAVERSE_URL=${ENV_METAVERSE_URL}"
@@ -47,7 +50,7 @@ docker run \
         --name=domainserver \
         -e METAVERSE_URL=$ENV_METAVERSE_URL \
         -e ICE_SERVER=$ENV_ICE_SERVER \
-        -e INSTANCE=0 \
+        -e INSTANCE=$INSTANCE \
         --network=host \
         --volume ${DOTLOCALDIR}:/home/cadia/.local \
         --volume ${LOGDIR}:/home/cadia/logs \

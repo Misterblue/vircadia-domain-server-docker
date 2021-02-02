@@ -26,14 +26,16 @@ RUN cd /opt/vircadia \
 
 # Load the required libraries (the first time just loads packages)
 RUN cd /opt/vircadia/vircadia-builder \
-    && ./vircadia-builder --tag=$TAG \
+    && ./vircadia-builder \
+            --tag=$TAG \
             --build=domain-server,assignment-client,ice-server \
             --destdir /opt/vircadia \
             --auto
 
 # Create a list of all the source dependencies needed for later phase
 RUN cd /opt/vircadia/vircadia-builder \
-    && ./vircadia-builder --tag=$TAG \
+    && ./vircadia-builder \
+            --tag=$TAG \
             --destdir /opt/vircadia \
             --keep-source \
             --get-source-deps ubuntu-18.04 \

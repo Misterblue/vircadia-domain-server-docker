@@ -27,6 +27,16 @@ ASSIGNMENT_BASE=$(( 48000 + $INSTANCE * 10 ))
 # Each of the assignment-clients point back to the domain-server to make connections.
 DOMAIN_SERVER_PORT=$(( $DOMAIN_SERVER_BASE + 2 ))
 
+(
+    echo "Starting domain-server: $(date)"
+    echo "   HIFI_METAVERSE_URL=${HIFI_METAVERSE_URL}"
+    echo "   ICE_SERVER_URL=${ICE_SERVER_URL}"
+    echo "   INSTANCE=${INSTANCE}"
+    echo "   DOMAIN_SERVER_PORT=${DOMAIN_SERVER_PORT}"
+    echo "   DOMAIN_SERVER_BASE=${DOMAIN_SERVER_BASE}"
+    echo "   ASSIGNMENT_BASE=${ASSIGNMENT_BASE}"
+) >> "${LOGFILE}.log"
+
 cd "${RUNDIR}"
 
 ./run_assignment-client -t 0 -p $(( $ASSIGNMENT_BASE + 0 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-0.log" 2>&1 &
@@ -37,6 +47,6 @@ cd "${RUNDIR}"
 ./run_assignment-client -t 4 -p $(( $ASSIGNMENT_BASE + 4 )) --server-port ${DOMAIN_SERVER_PORT} >> "${ALOGFILE}-4.log" 2>&1 &
 ./run_assignment-client -t 2 -p $(( $ASSIGNMENT_BASE + 2 )) --server-port ${DOMAIN_SERVER_PORT} --max 60 >> "${ALOGFILE}-2.log" 2>&1 &
 
-sleep 1
+sleep 2
 
 ./run_domain-server -i ${ICE_SERVER_URL} >> "${LOGFILE}.log" 2>&1
