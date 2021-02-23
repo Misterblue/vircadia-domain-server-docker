@@ -4,6 +4,7 @@ FROM domain-server-build-base as domain-server-build
 RUN echo UTC >/etc/timezone
 
 # The tag to pull from the Project Athena source repository.
+ARG REPO=https://github.com/vircadia/vircadia
 ARG TAG=master
 
 # Tell the libraries not to use the interactive dialogs
@@ -16,6 +17,7 @@ FROM ubuntu:18.04 as domain-server-run
 RUN echo UTC >/etc/timezone
 
 # The tag to pull from the Project Athena source repository. (Note defn in previous stage)
+ARG REPO=https://github.com/vircadia/vircadia
 ARG TAG=master
 
 # Tell the libraries not to use the interactive dialogs
