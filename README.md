@@ -1,4 +1,4 @@
-# vircadia-domin-server-docker
+# vircadia-domain-server-docker
 
 Docker version of Vircadia domain-server built with vircadia-builder.
 
