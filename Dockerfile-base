@@ -20,12 +20,14 @@ RUN mkdir -p /opt/vircadia
 
 #    && git clone --branch feature-optSkipSystemdRestart https://github.com/misterblue/vircadia-builder.git \
 # Get the builder
+ADD https://api.github.com/repos/vircadia/vircadia-builder/git/refs/heads/master vircadia-builder-git-version.json
 RUN cd /opt/vircadia \
-    && git clone https://github.com/daleglass/vircadia-builder.git \
+    && git clone https://github.com/vircadia/vircadia-builder.git \
     && cd vircadia-builder \
     && chmod +x vircadia-builder
 
 # Load the required libraries (the first time just loads packages)
+ADD https://api.github.com/repos/vircadia/vircadia/git/refs/heads/${TAG} vircadia-git-version.json
 RUN cd /opt/vircadia/vircadia-builder \
     && ./vircadia-builder \
             --repo=$REPO \
