@@ -19,8 +19,6 @@ LOGDIR=${BASE}/server-logs/${CLEANMVNAME}
 
 DVERSION=latest
 
-BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
-
 # Debugging stuff that can be removed
 echo "METAVERSE_URL=${ENV_METAVERSE_URL}"
 echo "DOTLOCALDIR=${DOTLOCALDIR}"
