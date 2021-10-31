@@ -1,5 +1,5 @@
 # build a domain-server using vircadia-builder
-FROM ubuntu:18.04 as domain-server-build
+FROM ubuntu:20.04 as domain-server-build
 
 RUN echo UTC >/etc/timezone
 
@@ -27,7 +27,7 @@ RUN cd /opt/vircadia \
     && chmod +x vircadia-builder
 
 # Load the required libraries (the first time just loads packages)
-ADD https://api.github.com/repos/vircadia/vircadia/git/refs/heads/${TAG} vircadia-git-version.json
+# ADD https://api.github.com/repos/vircadia/vircadia/git/refs/heads/${TAG} vircadia-git-version.json
 RUN cd /opt/vircadia/vircadia-builder \
     && ./vircadia-builder \
             --repo=$REPO \
@@ -43,7 +43,7 @@ RUN cd /opt/vircadia/vircadia-builder \
             --tag=$TAG \
             --destdir /opt/vircadia \
             --keep-source \
-            --get-source-deps ubuntu-18.04 \
+            --get-source-deps ubuntu-20.04 \
             --auto > /opt/vircadia/builder-deps.txt
 
 # Build the server pieces
@@ -56,6 +56,9 @@ RUN cd /opt/vircadia/vircadia-builder \
             --build=domain-server,assignment-client,ice-server \
             --skip-systemd-restart \
             --auto
+
+# vircadia-builder puts the built image into 'install-$TAG'. Move to "install-master" so later code is simplier
+RUN if [ ! -d /opt/vircadia/install-master ] ; then mv /opt/vircadia/vircadia_20* /opt/vircadia/install_master ; fi
 
 COPY files/buildVersion.sh /tmp
 RUN mkdir -p /opt/vircadia/version \
