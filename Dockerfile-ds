@@ -12,7 +12,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=linux
 
 # =======================================
-FROM ubuntu:18.04 as domain-server-run
+FROM ubuntu:20.04 as domain-server-run
 
 RUN echo UTC >/etc/timezone
 
@@ -31,7 +31,7 @@ RUN mkdir -p /opt/vircadia/install_master \
     && mkdir -p /opt/vircadia/qt5-install/lib \
     && chown -R cadia:cadia /opt/vircadia
 
-COPY --from=domain-server-build --chown=cadia:cadia /opt/vircadia/install_$TAG /opt/vircadia/install_master
+COPY --from=domain-server-build --chown=cadia:cadia /opt/vircadia/install_master /opt/vircadia/install_master
 COPY --from=domain-server-build --chown=cadia:cadia /opt/vircadia/qt5-install/lib /opt/vircadia/qt5-install/lib
 COPY --from=domain-server-build --chown=cadia:cadia /opt/vircadia/builder-deps.txt /opt/vircadia/
 # The service definitions are built and hidden in /root/.config
@@ -44,7 +44,6 @@ COPY --from=domain-server-build --chown=cadia:cadia /opt/vircadia/version /opt/v
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y vim \
-    && apt-get install -y libssl-dev \
     && apt-get install -y $(cat /opt/vircadia/builder-deps.txt) \
     && apt-get clean \
     && rm -rf /var/lib/app/lists/*
