@@ -49,17 +49,16 @@ RUN cd /opt/vircadia/vircadia-builder \
             --auto > /opt/vircadia/builder-deps.txt
 
 # If using the system Qt, get the dependencies for that for later loading
-RUN if [ ! -d /opt/vircadia/qt5-install ] ; then \
-    cd /opt/vircadia/vircadia-builder \
-    && ./vircadia-builder \
-            --repo=$REPO \
-            --tag=$TAG \
-            --destdir /opt/vircadia \
-            --keep-source \
-            --get-system-qt-deps \
-            --release-type=production \
-            --auto >> /opt/vircadia/builder-deps.txt \
-    fi
+# NOTE: this is an attempt to integrate the system Qt. For the moment, require building Qt
+# RUN if [ ! -d /opt/vircadia/qt5-install ] ; then \
+#         cd /opt/vircadia/vircadia-builder \
+#         && ./vircadia-builder \
+#             --repo=$REPO \
+#             --tag=$TAG \
+#             --destdir /opt/vircadia \
+#             --keep-source \
+#             --get-system-qt-deps >> /opt/vircadia/builder-deps.txt ; \
+#     fi
 
 # Build the server pieces
 ADD https://api.github.com/repos/vircadia/vircadia/git/refs/heads/$TAG vircadia-git-version.json
@@ -75,7 +74,9 @@ RUN cd /opt/vircadia/vircadia-builder \
             --auto
 
 # vircadia-builder puts the built image into 'install-$TAG'. Move to "install-master" so later code is simplier
-RUN if [ ! -d /opt/vircadia/install-master ] ; then mv /opt/vircadia/vircadia_20* /opt/vircadia/install_master ; fi
+RUN if [ ! -d /opt/vircadia/install-master ] ; then \
+        mv /opt/vircadia/vircadia_20* /opt/vircadia/install_master ; \
+    fi
 
 COPY files/buildVersion.sh /tmp
 RUN mkdir -p /opt/vircadia/version \
