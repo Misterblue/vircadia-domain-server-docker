@@ -39,7 +39,7 @@ export INSTANCE=0
 BASE="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
 
 # Create a cleaned up version of the METAVERSE_URL to use as directory for per-grid info
-CLEANMVNAME=$(echo $ENV_METAVERSE_URL | sed -e 's=http.*://==' -e 's/[[:punct:]]/./g')
+CLEANMVNAME=$(echo $METAVERSE_URL | sed -e 's=http.*://==' -e 's/[[:punct:]]/./g')
 
 # Grid configuration and info stored here
 DOTLOCALDIR=${BASE}/server-dotlocal/${CLEANMVNAME}
@@ -66,8 +66,8 @@ docker run \
         -d \
         --restart=unless-stopped \
         --name=domainserver \
-        -e METAVERSE_URL=$ENV_METAVERSE_URL \
-        -e ICE_SERVER=$ENV_ICE_SERVER \
+        -e METAVERSE_URL=$METAVERSE_URL \
+        -e ICE_SERVER=$ICE_SERVER \
         -e INSTANCE=$INSTANCE \
         --network=host \
         --volume ${DOTLOCALDIR}:/home/cadia/.local \
