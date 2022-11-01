@@ -1,5 +1,9 @@
 # vircadia-domain-server-docker
 
+**NOTE:** This repository IS NOT CURRENT and probably does not apply to the
+current Vircadia sources and build process. Use this as a hint at how
+to create a Docker image, but otherwise, this repository should be ignored.
+
 Docker version of Vircadia domain-server built with vircadia-builder.
 
 This repository includes files to build the Docker image (build*.sh)
