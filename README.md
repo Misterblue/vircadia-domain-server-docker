@@ -1,6 +1,7 @@
 # vircadia-domain-server-docker
 
-**NOTE:** This repository IS NOT CURRENT and probably does not apply to the
+**NOTE:** These instructions for creating a Vircadia Docker image ARE NOT CURRENT
+and probably do not apply to the
 current Vircadia sources and build process. Use this as a hint at how
 to create a Docker image, but otherwise, this repository should be ignored.
 
